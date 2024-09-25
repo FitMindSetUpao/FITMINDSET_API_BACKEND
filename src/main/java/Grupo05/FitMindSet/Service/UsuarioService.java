@@ -9,5 +9,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsuarioService {
 
+    UserProfileDTO registerCustomer(UserRegistrationDTO registrationDTO);
+
+    UserProfileDTO registerAuthor(UserRegistrationDTO registrationDTO);
+
+    AuthResponseDTO login(LoginDTO loginDTO);
+
+    UserProfileDTO getUserProfileById(Long id);
+}
+
+
 }
 
