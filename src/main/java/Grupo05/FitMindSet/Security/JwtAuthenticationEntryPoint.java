@@ -1,5 +1,6 @@
 package Grupo05.FitMindSet.Security;
 
+import Grupo05.FitMindSet.Exception.CustomErrorResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -7,15 +8,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
-import javax.naming.AuthenticationException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         String exceptionMsg = (String) request.getAttribute("exception");
@@ -25,6 +27,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         }
 
         CustomErrorResponse errorResponse = new CustomErrorResponse(LocalDateTime.now(), exceptionMsg, request.getRequestURI());
+
 
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.getWriter().write(convertObjectToJson(errorResponse));
@@ -39,6 +42,4 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         mapper.findAndRegisterModules();
         return mapper.writeValueAsString(object);
     }
-}
-
 }

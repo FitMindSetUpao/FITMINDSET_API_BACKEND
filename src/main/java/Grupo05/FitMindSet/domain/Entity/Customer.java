@@ -12,6 +12,17 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "Nombre", nullable = true, length = 100)
+    private String nombre;
+
+    @Column(name = "Apellidos", nullable = false, length = 100)
+    private String apellidos;
+
+    @Column(name = "Edad")
+    private int edad;
+
+    @Column(name = "Genero")
+    private String genero;
 
     @ManyToOne
     @JoinColumn(name = "SuscripcionID")
