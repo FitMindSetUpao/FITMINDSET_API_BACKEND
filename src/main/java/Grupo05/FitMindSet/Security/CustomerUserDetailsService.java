@@ -14,10 +14,11 @@ public class CustomerUserDetailsService implements UserDetailsService {
     public CustomerUserDetailsService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByEmail(correo)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con el email: "+ correo));
+        Usuario usuario = usuarioRepository.findByCorreo(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con el email: " + username));
 
         return UsuarioPrincipal.create(usuario);
     }

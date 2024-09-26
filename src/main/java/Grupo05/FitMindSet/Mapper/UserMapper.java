@@ -25,6 +25,7 @@ public class UserMapper {
         if(usuario.getCustomer() != null) {
             userProfileDTO.setNombre(usuario.getCustomer().getNombre());
             userProfileDTO.setApellidos(usuario.getCustomer().getApellidos());
+            
 
         }
         if (usuario.getAutor() != null) {

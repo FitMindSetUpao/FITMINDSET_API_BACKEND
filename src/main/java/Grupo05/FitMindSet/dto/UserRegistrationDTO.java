@@ -19,7 +19,7 @@ public class UserRegistrationDTO {
 
         private int edad;
         private String genero;
-        private String especialidad;
+        private String especialidad;//en casos del autor
 
     }
 

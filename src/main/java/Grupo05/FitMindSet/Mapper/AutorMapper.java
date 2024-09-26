@@ -15,7 +15,7 @@ public class AutorMapper {
         return modelMapper.map(autor, AutorDTO.class);
     }
     public Autor toEntity(AutorDTO autorDTO){
-        return modelMapper.map(autorDTO,Autor.class)
+        return modelMapper.map(autorDTO,Autor.class);
 
     }
 }

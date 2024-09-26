@@ -7,6 +7,7 @@ import Grupo05.FitMindSet.dto.LoginDTO;
 import Grupo05.FitMindSet.dto.UserProfileDTO;
 import Grupo05.FitMindSet.dto.UserRegistrationDTO;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,38 +17,28 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
-    private final UsuarioService usuarioService;
 
-    public AuthController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
-    }
+    private final UsuarioService userService;
 
     @PostMapping("/register/customer")
-    public ResponseEntity<UserProfileDTO> registerCustomer(@RequestBody @Valid UserRegistrationDTO registrationDTO) {
-        UserProfileDTO profile = usuarioService.registerCustomer(registrationDTO);
-        return ResponseEntity.ok(profile);
+    public ResponseEntity<UserProfileDTO> registerCustomer(@Valid @RequestBody UserRegistrationDTO userRegistrationDTO) {
+        UserProfileDTO userProfile = userService.registerCustomer(userRegistrationDTO);
+        return new ResponseEntity<>(userProfile, HttpStatus.CREATED);
     }
 
-    // Endpoint para registrar un autor
     @PostMapping("/register/author")
-    public ResponseEntity<UserProfileDTO> registerAuthor(@RequestBody @Valid UserRegistrationDTO registrationDTO) {
-        UserProfileDTO profile = usuarioService.registerAuthor(registrationDTO);
-        return ResponseEntity.ok(profile);
+    public ResponseEntity<UserProfileDTO> registerAuthor(@Valid @RequestBody UserRegistrationDTO userRegistrationDTO) {
+        UserProfileDTO userProfile = userService.registerAuthor(userRegistrationDTO);
+        return new ResponseEntity<>(userProfile, HttpStatus.CREATED);
     }
 
-    // Endpoint para iniciar sesión
+    // Endpoint para el login
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDTO> login(@RequestBody @Valid LoginDTO loginDTO) {
-        AuthResponseDTO authResponse = usuarioService.login(loginDTO);
-        return ResponseEntity.ok(authResponse);
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO) {
+        AuthResponseDTO authResponse = userService.login(loginDTO);
+        return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }
 
-    // Endpoint para obtener el perfil de un usuario (autenticado)
-    @GetMapping("/profile/{id}")
-    @PreAuthorize("hasAnyRole('CUSTOMER', 'AUTHOR')")
-    public ResponseEntity<UserProfileDTO> getUserProfile(@PathVariable Long id) {
-        UserProfileDTO profile = usuarioService.getUserProfileById(id);
-        return ResponseEntity.ok(profile);
-    }
 }
