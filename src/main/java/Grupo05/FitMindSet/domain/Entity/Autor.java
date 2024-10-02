@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,9 +17,14 @@ public class Autor {
     private String especialidad;
 
     @OneToMany(mappedBy = "autor")
-    private List<Recurso> recursos;
+
+    //Usamos un ArrayList
+    private List<Recurso> recursos=new ArrayList<>();
     @OneToOne
     @JoinColumn(name = "Usuario_id",referencedColumnName = "id")
     private Usuario usuario;
+
+
+
 }
 

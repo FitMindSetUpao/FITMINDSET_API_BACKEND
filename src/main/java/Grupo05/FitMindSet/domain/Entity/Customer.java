@@ -12,7 +12,9 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+ //parte
+    @Column(name = "Nombre", nullable = false)
+    private String nombre;
     @ManyToOne
     @JoinColumn(name = "SuscripcionID")
     private Suscripcion suscripcion;
@@ -48,4 +50,8 @@ public class Customer {
     @OneToOne
     @JoinColumn(name = "Usuario_id",referencedColumnName = "id")
     private Usuario usuario;
+
+    public String getNombre() {
+        return nombre;
+    }
 }
