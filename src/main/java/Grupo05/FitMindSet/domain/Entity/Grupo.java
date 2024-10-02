@@ -26,4 +26,6 @@ public class Grupo {
 
     @OneToMany(mappedBy = "grupo")
     private List<GestorDeGrupo> gestores;
+
+
 }
