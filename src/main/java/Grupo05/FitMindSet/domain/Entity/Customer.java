@@ -35,8 +35,8 @@ public class Customer {
     @Column(name = "Altura")
     private Double altura;
 
-    @OneToOne(mappedBy = "customer")
-    private Comentario comentario;
+    @OneToMany(mappedBy = "customer")
+    private List<Comentario> comentario;
 
     // Método para calcular el IMC
     public Double calcularIMC() {
