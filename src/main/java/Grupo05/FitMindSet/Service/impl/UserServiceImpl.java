@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl {
     private UsuarioRepository usuarioRepository;
 
-
-
     @Transactional
     public void eliminarUsuarioPorCorreo(String correo) {
         Usuario usuario = usuarioRepository.findOneByCorreo(correo)
