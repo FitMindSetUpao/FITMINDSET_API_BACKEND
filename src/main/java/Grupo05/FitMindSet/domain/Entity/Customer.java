@@ -12,6 +12,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "Nombre", nullable = true, length = 100)
     private String nombre;
 
@@ -32,7 +33,7 @@ public class Customer {
     private List<Habito> habitos;
 
     @OneToMany(mappedBy = "customer")
-    private List<Grupo> Grupos;
+    private List<Grupo> grupos;
 
     @OneToMany(mappedBy = "customer")
     private List<GestorDeGrupo> gruposGestionados;
@@ -56,7 +57,12 @@ public class Customer {
         }
         return null;
     }
+
     @OneToOne
-    @JoinColumn(name = "Usuario_id",referencedColumnName = "id")
+    @JoinColumn(name = "Usuario_id", referencedColumnName = "id")
     private Usuario usuario;
+
+    public String getNombre() {
+        return nombre;
+    }
 }

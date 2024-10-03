@@ -24,6 +24,9 @@ public class Grupo {
     @JoinColumn(name = "CustomerID")
     private Customer customer;
 
+    @OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comentario> comentarios;  // <--- Relación con los comentarios
     @OneToMany(mappedBy = "grupo")
     private List<GestorDeGrupo> gestores;
 }
+
