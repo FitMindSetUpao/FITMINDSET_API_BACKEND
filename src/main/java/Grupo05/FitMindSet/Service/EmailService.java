@@ -1,7 +1,8 @@
 package Grupo05.FitMindSet.Service;
 
-public interface EmailService {
+import org.springframework.mail.SimpleMailMessage;
 
+public class EmailService {
     public void sendAccountDeletionEmail(String to) {
         String subject = "Cuenta Eliminada";
         String body = "Tu cuenta ha sido eliminada exitosamente. Si no fuiste tú, por favor contáctanos inmediatamente.";
@@ -13,5 +14,4 @@ public interface EmailService {
 
         emailSender.send(message);
     }
-
 }
