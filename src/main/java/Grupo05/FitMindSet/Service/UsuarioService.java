@@ -1,13 +1,9 @@
-
 package Grupo05.FitMindSet.Service;
 
 import Grupo05.FitMindSet.domain.Entity.Usuario;
-import Grupo05.FitMindSet.Repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Service
-public class UsuarioService {
-
+public interface UsuarioService extends JpaRepository<Usuario, Long> {
+    void delete (Long id);
+    void eliminarUsuarioPorCorreo(String correo);
 }
-
