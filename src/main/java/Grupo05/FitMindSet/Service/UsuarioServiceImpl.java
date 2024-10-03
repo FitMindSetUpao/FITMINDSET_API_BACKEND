@@ -1,20 +1,49 @@
+package Grupo05.FitMindSet.Service.impl;
 
-package Grupo05.FitMindSet.Service;
-
-import Grupo05.FitMindSet.Repository.MetaRepository;
-import Grupo05.FitMindSet.dto.response.RecompensaResponseDTO;
-import Grupo05.FitMindSet.dto.request.CrearMetaRequestDTO;
-import Grupo05.FitMindSet.domain.Entity.Meta;
-import org.springframework.beans.factory.annotation.Autowired;
+import Grupo05.FitMindSet.Exception.BadRequestException;
+import Grupo05.FitMindSet.Exception.InvalidCredentialsException;
+import Grupo05.FitMindSet.Exception.ResourceNotFoundException;
+import Grupo05.FitMindSet.Exception.RoleNotFoundException;
+import Grupo05.FitMindSet.Mapper.UserMapper;
+import Grupo05.FitMindSet.Repository.AutorRepository;
+import Grupo05.FitMindSet.Repository.CustomerRepository;
+import Grupo05.FitMindSet.Repository.RolRepository;
+import Grupo05.FitMindSet.Repository.UsuarioRepository;
+import Grupo05.FitMindSet.Security.TokenProvider;
+import Grupo05.FitMindSet.Service.UsuarioService;
+import Grupo05.FitMindSet.domain.Entity.Autor;
+import Grupo05.FitMindSet.domain.Entity.Customer;
+import Grupo05.FitMindSet.domain.Entity.Rol;
+import Grupo05.FitMindSet.domain.Entity.Usuario;
+import Grupo05.FitMindSet.domain.Enum.ERole;
+import Grupo05.FitMindSet.dto.AuthResponseDTO;
+import Grupo05.FitMindSet.dto.LoginDTO;
+import Grupo05.FitMindSet.dto.UserProfileDTO;
+import Grupo05.FitMindSet.dto.UserRegistrationDTO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-
-// Importa LocalDateTime desde java.time
-import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.List;
 
 @Service
-public class UsuarioService {
+@RequiredArgsConstructor
+public class UsuarioServiceImpl implements UsuarioService {
+
+    private final UsuarioRepository usuarioRepository;
+    private final CustomerRepository customerRepository;
+    private final AutorRepository autorRepository;
+    private final RolRepository rolRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
+    private final AuthenticationManager authenticationManager;
+    private final TokenProvider tokenProvider;
     @Autowired
     private MetaRepository metaRepository;
 
