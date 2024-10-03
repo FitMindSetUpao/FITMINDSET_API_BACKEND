@@ -12,4 +12,6 @@ public interface IEmailService {
     void sendWeeklyReminder(String recipientEmail) throws MessagingException;
 
     void sendMonthlyReminder(String recipientEmail) throws MessagingException;
+
+    void sendAccountDeletionEmail(String to);
 }

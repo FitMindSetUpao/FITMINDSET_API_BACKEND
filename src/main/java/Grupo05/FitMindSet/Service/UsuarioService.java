@@ -9,6 +9,7 @@ import Grupo05.FitMindSet.dto.response.RegistroActividadResponseDTO;
 import Grupo05.FitMindSet.dto.request.RegistroActividadRequestDTO;
 
 public interface UsuarioService {
+    // Métodos de gestión de usuarios
     UserProfileDTO registerCustomer(UserRegistrationDTO registrationDTO) throws RoleNotFoundException;
 
     UserProfileDTO registerAuthor(UserRegistrationDTO registrationDTO) throws RoleNotFoundException;
@@ -21,5 +22,11 @@ public interface UsuarioService {
 
     boolean isEmailRegistered(String correo);
     
-    RegistroActividadResponseDTO registrarActividad(RegistroActividadRequestDTO request); // Método agregado a la interfaz
+    // Método de registro de actividad
+    RegistroActividadResponseDTO registrarActividad(RegistroActividadRequestDTO request);
+
+    // Métodos relacionados con la eliminación de usuario
+    void delete(Long id);
+
+    void eliminarUsuarioPorCorreo(String correo);
 }

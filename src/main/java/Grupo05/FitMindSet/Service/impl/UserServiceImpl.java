@@ -42,6 +42,7 @@ public class UserServiceImpl implements UsuarioService {
     private final AuthenticationManager authenticationManager;
     private final TokenProvider tokenProvider;
 
+    // Métodos de registro y login
     @Transactional
     @Override
     public UserProfileDTO registerCustomer(UserRegistrationDTO registrationDTO) {
@@ -69,10 +70,10 @@ public class UserServiceImpl implements UsuarioService {
         );
 
         String token = tokenProvider.createAccessToken(authentication);
-        AuthResponseDTO response = userMapper.toAuthResponseDTO(usuario, token);
-        return response;
+        return userMapper.toAuthResponseDTO(usuario, token);
     }
 
+    // Método auxiliar para el registro con rol
     public UserProfileDTO registerUserWithRole(UserRegistrationDTO registrationDTO, ERole roleEnum) {
         boolean emailExists = usuarioRepository.existsByCorreo(registrationDTO.getCorreo());
         boolean existsAsCustomer = customerRepository.existsByNombreAndApellidos(registrationDTO.getNombre(), registrationDTO.getApellidos());
@@ -98,11 +99,9 @@ public class UserServiceImpl implements UsuarioService {
             customer.setApellidos(registrationDTO.getApellidos());
             customer.setEdad(registrationDTO.getEdad());
             customer.setGenero(registrationDTO.getGenero());
-            customer.setUsuario(usuario); // Aquí vinculas el Customer con el Usuario.
-
-
+            customer.setUsuario(usuario);
             customer = customerRepository.save(customer);
-            usuario.setCustomer(customer); // Asegúrate de que el Customer se asigne al Usuario.
+            usuario.setCustomer(customer);
         } else if (roleEnum == ERole.AUTHOR) {
             Autor autor = new Autor();
             autor.setNombre(registrationDTO.getNombre());
@@ -111,8 +110,6 @@ public class UserServiceImpl implements UsuarioService {
             autor.setGenero(registrationDTO.getGenero());
             autor.setEspecialidad(registrationDTO.getEspecialidad());
             autor.setUsuario(usuario);
-
-            // Guardar el Autor primero.
             autor = autorRepository.save(autor);
             usuario.setAutor(autor);
         }
@@ -121,7 +118,7 @@ public class UserServiceImpl implements UsuarioService {
         return userMapper.toUserProfileDTO(savedUser);
     }
 
-
+    // Métodos de actualización y obtención de perfil
     @Transactional
     @Override
     public UserProfileDTO updateUserProfile(Long id, UserProfileDTO userProfileDTO) {
@@ -134,10 +131,12 @@ public class UserServiceImpl implements UsuarioService {
         if (existsAsCustomer || existsAsAuthor) {
             throw new BadRequestException("Ya existe un usuario con el mismo nombre y apellido");
         }
+
         if (usuario.getCustomer() != null) {
             usuario.getCustomer().setNombre(userProfileDTO.getNombre());
             usuario.getCustomer().setApellidos(userProfileDTO.getApellidos());
         }
+
         if (usuario.getAutor() != null) {
             usuario.getAutor().setNombre(userProfileDTO.getNombre());
             usuario.getAutor().setApellidos(userProfileDTO.getApellidos());
@@ -155,5 +154,22 @@ public class UserServiceImpl implements UsuarioService {
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
 
         return userMapper.toUserProfileDTO(usuario);
+    }
+
+    // Métodos de eliminación de usuarios
+    @Transactional
+    @Override
+    public void eliminarUsuarioPorCorreo(String correo) {
+        Usuario usuario = usuarioRepository.findOneByCorreo(correo)
+                .orElseThrow(() -> new BadRequestException("Usuario no encontrado."));
+        usuarioRepository.delete(usuario);
+    }
+
+    @Transactional
+    @Override
+    public void delete(Long id) throws BadRequestException {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+        usuarioRepository.delete(usuario);
     }
 }
