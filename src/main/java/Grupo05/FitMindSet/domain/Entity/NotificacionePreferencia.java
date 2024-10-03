@@ -13,8 +13,8 @@ public class NotificacionePreferencia {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private Usuario usuario;
+    @JoinColumn(name = "Customer_id", nullable = false)
+    private Customer customer;
 
     private boolean notifyOnRegistration;
     private boolean notifyOnProfileDeletion;
