@@ -26,7 +26,7 @@ public class Habito {
 
 
     @ManyToOne
-    @JoinColumn(name = "Usuario_id", referencedColumnName = "id", nullable = true)
-    private Usuario usuario;
+    @JoinColumn(name = "Customer_id", referencedColumnName = "id", nullable = true)
+    private Customer customer;
 
 }

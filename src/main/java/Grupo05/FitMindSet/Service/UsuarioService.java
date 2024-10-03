@@ -1,32 +1,21 @@
-
 package Grupo05.FitMindSet.Service;
 
-import Grupo05.FitMindSet.domain.Entity.Usuario;
-import Grupo05.FitMindSet.Repository.UsuarioRepository;
-import Grupo05.FitMindSet.Repository.MetaRepository;
-import Grupo05.FitMindSet.dto.response.ModificarMetaResponseDTO;
-import Grupo05.FitMindSet.dto.request.ModificarMetaRequestDTO;
-import Grupo05.FitMindSet.domain.Entity.Meta;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import Grupo05.FitMindSet.Exception.RoleNotFoundException;
+import Grupo05.FitMindSet.dto.AuthResponseDTO;
+import Grupo05.FitMindSet.dto.LoginDTO;
+import Grupo05.FitMindSet.dto.UserProfileDTO;
+import Grupo05.FitMindSet.dto.UserRegistrationDTO;
 
-@Service
-public class UsuarioService {
-    @Autowired
-    private MetaRepository metaRepository;
+public interface UsuarioService {
+    UserProfileDTO registerCustomer(UserRegistrationDTO registrationDTO) throws RoleNotFoundException;
 
-    public ModificarMetaResponseDTO modificarMeta(ModificarMetaRequestDTO request) {
-        Meta meta = metaRepository.findById(request.getMetaId())
-                .orElseThrow(() -> new RuntimeException("Meta no encontrada"));
+    UserProfileDTO registerAuthor(UserRegistrationDTO registrationDTO) throws RoleNotFoundException;
 
-        meta.setDescripcion(request.getNuevaDescripcion());
-        meta.setFechaFin(request.getNuevaFechaFin());
-        metaRepository.save(meta);
+    AuthResponseDTO login(LoginDTO loginDTO);
 
-        ModificarMetaResponseDTO response = new ModificarMetaResponseDTO();
-        response.setMetaId(meta.getId());
-        response.setEstado("Meta actualizada exitosamente");
+    UserProfileDTO updateUserProfile(Long id, UserProfileDTO userProfileDTO);
 
-        return response;
-    }
+    UserProfileDTO getUserProfileById(Long id);
+
+    boolean isEmailRegistered(String correo);
 }
