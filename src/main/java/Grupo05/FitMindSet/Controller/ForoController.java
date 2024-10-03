@@ -1,8 +1,8 @@
 package Grupo05.FitMindSet.Controller;
 import Grupo05.FitMindSet.dto.request.ComentarioRequestDTO;
 import Grupo05.FitMindSet.dto.response.ComentarioResponseDTO;
-import Grupo05.FitMindSet.dto.GrupoRequestDTO;
-import Grupo05.FitMindSet.dto.GrupoResponseDTO;
+import Grupo05.FitMindSet.dto.request.GrupoRequestDTO;
+import Grupo05.FitMindSet.dto.response.GrupoResponseDTO;
 import Grupo05.FitMindSet.Service.ComentarioService;
 import Grupo05.FitMindSet.Service.GrupoService;
 import org.springframework.beans.factory.annotation.Autowired;
