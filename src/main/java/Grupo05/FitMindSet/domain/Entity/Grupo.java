@@ -28,5 +28,7 @@ public class Grupo {
     private List<Comentario> comentarios;  // <--- Relación con los comentarios
     @OneToMany(mappedBy = "grupo")
     private List<GestorDeGrupo> gestores;
+
+
 }
 
