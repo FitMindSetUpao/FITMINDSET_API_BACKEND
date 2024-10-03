@@ -11,8 +11,8 @@ public class Grupo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ForoID")
-    private Long foroId;
+    @Column(name = "GestorDeGrupoId")
+    private Long GestorDeGrupoId;
 
     @Column(name = "Titulo", nullable = false, length = 50)
     private String titulo;
