@@ -1,13 +1,25 @@
-
 package Grupo05.FitMindSet.Service;
 
-import Grupo05.FitMindSet.domain.Entity.Usuario;
-import Grupo05.FitMindSet.Repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import Grupo05.FitMindSet.dto.AuthResponseDTO;
+import Grupo05.FitMindSet.dto.LoginDTO;
+import Grupo05.FitMindSet.dto.UserProfileDTO;
+import Grupo05.FitMindSet.dto.UserRegistrationDTO;
+import Grupo05.FitMindSet.Exception.RoleNotFoundException;
+import Grupo05.FitMindSet.dto.response.RegistroActividadResponseDTO;
+import Grupo05.FitMindSet.dto.request.RegistroActividadRequestDTO;
 
-@Service
-public class UsuarioService {
+public interface UsuarioService {
+    UserProfileDTO registerCustomer(UserRegistrationDTO registrationDTO) throws RoleNotFoundException;
 
+    UserProfileDTO registerAuthor(UserRegistrationDTO registrationDTO) throws RoleNotFoundException;
+
+    AuthResponseDTO login(LoginDTO loginDTO);
+
+    UserProfileDTO updateUserProfile(Long id, UserProfileDTO userProfileDTO);
+
+    UserProfileDTO getUserProfileById(Long id);
+
+    boolean isEmailRegistered(String correo);
+    
+    RegistroActividadResponseDTO registrarActividad(RegistroActividadRequestDTO request); // Método agregado a la interfaz
 }
-

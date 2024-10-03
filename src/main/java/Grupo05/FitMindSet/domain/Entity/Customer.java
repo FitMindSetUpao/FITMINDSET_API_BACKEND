@@ -13,6 +13,17 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "Nombre", nullable = true, length = 100)
+    private String nombre;
+
+    @Column(name = "Apellidos", nullable = false, length = 100)
+    private String apellidos;
+
+    @Column(name = "Edad")
+    private int edad;
+
+    @Column(name = "Genero")
+    private String genero;
 
     @ManyToOne
     @JoinColumn(name = "SuscripcionID")
@@ -22,7 +33,7 @@ public class Customer {
     private List<Habito> habitos;
 
     @OneToMany(mappedBy = "customer")
-    private List<Grupo> Grupos;
+    private List<Grupo> grupos;
 
     @OneToMany(mappedBy = "customer")
     private List<GestorDeGrupo> gruposGestionados;
@@ -39,14 +50,15 @@ public class Customer {
     @OneToOne(mappedBy = "customer")
     private Comentario comentario;
 
-    // Método para calcular el IMC
+    @OneToOne
+    @JoinColumn(name = "Usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
+
+    // Método para calcular el IMC (Índice de Masa Corporal)
     public Double calcularIMC() {
         if (peso != null && altura != null && altura > 0) {
             return peso / (altura * altura);
         }
-        return null;
+        return null; // Retorna null si no se pueden calcular los valores
     }
-    @OneToOne
-    @JoinColumn(name = "Usuario_id",referencedColumnName = "id")
-    private Usuario usuario;
 }
