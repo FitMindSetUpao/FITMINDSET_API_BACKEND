@@ -26,4 +26,9 @@ public class Grupo {
 
     @OneToMany(mappedBy = "grupo")
     private List<GestorDeGrupo> gestores;
+
+
+    //Increible
+    @OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comentario> comentarios;
 }

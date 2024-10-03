@@ -23,4 +23,9 @@ public class Comentario {
     @ManyToOne
     @JoinColumn(name = "customer", nullable = false)
     private Customer customer;
+
+    //gg
+    @ManyToOne
+    @JoinColumn(name = "GrupoID", nullable = false)
+    private Grupo grupo;
 }
