@@ -11,8 +11,8 @@ public class Grupo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ForoID")
-    private Long foroId;
+    @Column(name = "GestorDeGrupoId")
+    private Long GestorDeGrupoId;
 
     @Column(name = "Titulo", nullable = false, length = 50)
     private String titulo;
@@ -20,10 +20,9 @@ public class Grupo {
     @Column(name = "Descripcion", nullable = true, length = 255)
     private String descripcion;
 
-    // Relación con Usuario
     @ManyToOne
-    @JoinColumn(name = "UsuarioID")
-    private Usuario usuario;
+    @JoinColumn(name = "CustomerID")
+    private Customer customer;
 
     @OneToMany(mappedBy = "grupo")
     private List<GestorDeGrupo> gestores;

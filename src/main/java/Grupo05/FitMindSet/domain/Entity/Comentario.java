@@ -21,6 +21,6 @@ public class Comentario {
     private LocalDateTime fechaPublicacion;
 
     @ManyToOne
-    @JoinColumn(name = "UsuarioId", nullable = false)
-    private Usuario usuario;
+    @JoinColumn(name = "customer", nullable = false)
+    private Customer customer;
 }
