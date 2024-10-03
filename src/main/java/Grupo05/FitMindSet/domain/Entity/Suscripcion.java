@@ -31,8 +31,8 @@ public class Suscripcion {
     private TipoSuscripcion tipoSuscripcion;
 
     @ManyToOne
-    @JoinColumn(name = "FK_Usuario_Suscripcion", nullable = false)
-    private Usuario usuario;  // Relación con la entidad Usuario
+    @JoinColumn(name = "FK_Customer_Suscripcion", nullable = false)
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "FK_Plan_Suscripcion", nullable = false)

@@ -18,6 +18,6 @@ public class GestorDeGrupo {
     private Grupo grupo;
 
     @ManyToOne
-    @JoinColumn(name = "FK_UsuarioID", nullable = false)
-    private Usuario usuario;
+    @JoinColumn(name = "FK_CustomerID", nullable = false)
+    private Customer customer;
 }

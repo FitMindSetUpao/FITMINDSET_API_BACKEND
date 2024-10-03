@@ -11,8 +11,8 @@ public class Grupo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ForoID")
-    private Long foroId;
+    @Column(name = "GrupoId") // Cambiado de GestorDeGrupoId a GrupoId para reflejar el nombre correcto.
+    private Long grupoId;
 
     @Column(name = "Titulo", nullable = false, length = 50)
     private String titulo;
@@ -20,10 +20,12 @@ public class Grupo {
     @Column(name = "Descripcion", nullable = true, length = 255)
     private String descripcion;
 
-    // Relación con Usuario
     @ManyToOne
-    @JoinColumn(name = "UsuarioID")
-    private Usuario usuario;
+    @JoinColumn(name = "CustomerID")
+    private Customer customer;
+
+    @OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comentario> comentarios; // Relación con los comentarios.
 
     @OneToMany(mappedBy = "grupo")
     private List<GestorDeGrupo> gestores;
