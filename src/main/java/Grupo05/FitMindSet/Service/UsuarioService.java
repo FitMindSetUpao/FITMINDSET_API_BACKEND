@@ -18,6 +18,7 @@ public interface UsuarioService{
     UserProfileDTO updateUserProfile(Long id, UserProfileDTO userProfileDTO);
 
     UserProfileDTO getUserProfileById(Long id);
+     boolean isEmailRegistered(String correo);
 }
 
 
