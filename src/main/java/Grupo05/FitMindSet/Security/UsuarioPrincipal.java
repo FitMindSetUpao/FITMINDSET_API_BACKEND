@@ -37,7 +37,7 @@ public class UsuarioPrincipal implements UserDetails {
         return authorities;
     }
     @Override
-    public String getContrasena(){
+    public String getPassword() {
         return contrasena;
 
     }

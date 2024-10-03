@@ -12,5 +12,4 @@ public class UserProfileDTO {
     private String nombre;
     private String apellidos;
     private String especialidad; //autor
-    private String rol;
 }

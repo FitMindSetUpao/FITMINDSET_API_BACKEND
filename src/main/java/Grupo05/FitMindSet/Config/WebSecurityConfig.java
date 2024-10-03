@@ -2,6 +2,7 @@ package Grupo05.FitMindSet.Config;
 
 import Grupo05.FitMindSet.Security.JWTConfigurer;
 import Grupo05.FitMindSet.Security.JWTFilter;
+import Grupo05.FitMindSet.Security.JwtAuthenticationEntryPoint;
 import Grupo05.FitMindSet.Security.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -39,7 +40,7 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests ->authorizeRequests
                         .requestMatchers(antMatcher("/auth/login")).permitAll()
-                        .requestMatchers(antMatcher("/auth/register/customer")).permitAll()
+                        .requestMatchers(antMatcher("/auth/register/**")).permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
