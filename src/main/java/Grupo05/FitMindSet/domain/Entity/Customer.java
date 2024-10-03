@@ -50,19 +50,15 @@ public class Customer {
     @OneToOne(mappedBy = "customer")
     private Comentario comentario;
 
-    // Método para calcular el IMC
-    public Double calcularIMC() {
-        if (peso != null && altura != null && altura > 0) {
-            return peso / (altura * altura);
-        }
-        return null;
-    }
-
     @OneToOne
     @JoinColumn(name = "Usuario_id", referencedColumnName = "id")
     private Usuario usuario;
 
-    public String getNombre() {
-        return nombre;
+    // Método para calcular el IMC (Índice de Masa Corporal)
+    public Double calcularIMC() {
+        if (peso != null && altura != null && altura > 0) {
+            return peso / (altura * altura);
+        }
+        return null; // Retorna null si no se pueden calcular los valores
     }
 }
