@@ -37,3 +37,4 @@ public class Recurso {
     @JoinColumn(name = "FK_TipoDeHabitoID", nullable = true)
     private TipoDeHabito tipoDeHabito;
 }
+
