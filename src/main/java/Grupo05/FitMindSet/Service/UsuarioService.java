@@ -4,6 +4,7 @@ package Grupo05.FitMindSet.Service;
 import Grupo05.FitMindSet.Exception.UserNotFoundException;
 import Grupo05.FitMindSet.domain.Entity.Usuario;
 import Grupo05.FitMindSet.Repository.UsuarioRepository;
+import Grupo05.FitMindSet.dto.request.UsuarioRequestDTO;
 import Grupo05.FitMindSet.dto.response.UsuarioResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,20 @@ public class UsuarioService {
                 .orElseThrow(() -> new UserNotFoundException("No se encontro el usuario con el ID: " + id));
 
         return convertirAResponseDTO(usuario);
+    }
+
+    public UsuarioResponseDTO update(Long id, UsuarioRequestDTO usuarioRequestDTO) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("No se encontro el usuario con el ID: " + id));
+
+        usuario.setNombre(usuarioRequestDTO.getNombre());
+        usuario.setCorreo(usuarioRequestDTO.getCorreo());
+        usuario.setContrasena(usuarioRequestDTO.getContrasena());
+        usuario.setEdad(usuarioRequestDTO.getEdad());
+        usuario.setGenero(usuarioRequestDTO.getGenero());
+
+        Usuario usuarioActualizado = usuarioRepository.save(usuario);
+        return convertirAResponseDTO(usuarioActualizado);
     }
 
     private UsuarioResponseDTO convertirAResponseDTO(Usuario usuario) {

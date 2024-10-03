@@ -1,13 +1,12 @@
 package Grupo05.FitMindSet.Controller;
 
 import Grupo05.FitMindSet.Service.UsuarioService;
+import Grupo05.FitMindSet.dto.request.UsuarioRequestDTO;
 import Grupo05.FitMindSet.dto.response.UsuarioResponseDTO;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,4 +19,11 @@ public class UsuarioController {
         UsuarioResponseDTO usuarioPerfilResponseDTO = usuarioService.obtenerUsuarioPorId(id);
         return ResponseEntity.ok(usuarioPerfilResponseDTO);
     }
+
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<UsuarioResponseDTO> actualizarUsuario(@PathVariable Long id, @Valid @RequestBody UsuarioRequestDTO usuarioRequestDTO) {
+        UsuarioResponseDTO usuarioActualizado = usuarioService.update(id, usuarioRequestDTO);
+        return ResponseEntity.ok(usuarioActualizado);
+    }
+
 }
