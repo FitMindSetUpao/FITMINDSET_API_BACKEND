@@ -2,11 +2,16 @@ package Grupo05.FitMindSet.Controller;
 
 import Grupo05.FitMindSet.Service.EmailService;
 import Grupo05.FitMindSet.Service.UsuarioService;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/notificaciones")
@@ -22,6 +27,7 @@ public class NotificationController {
     public ResponseEntity<?> setNotificationPreference(@RequestBody Map<String, String> request) {
         String preference = request.get("preference");
         String recipientEmail = request.get("email");
+
         if (usuarioService.isEmailRegistered(recipientEmail)) {
             try {
                 emailService.sendReminderBasedOnPreference(recipientEmail, preference);
