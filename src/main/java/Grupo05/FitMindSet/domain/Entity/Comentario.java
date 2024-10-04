@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "Comentario")
 public class Comentario {
+
     @Id
     @Column(name = "ComentarioId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +22,10 @@ public class Comentario {
     private LocalDateTime fechaPublicacion;
 
     @ManyToOne
-    @JoinColumn(name = "UsuarioId", nullable = false)
-    private Usuario usuario;
+    @JoinColumn(name = "customer", nullable = false)
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "grupo", nullable = false) // Cambiado a "grupo" para mantener consistencia
+    private Grupo grupo;
 }
