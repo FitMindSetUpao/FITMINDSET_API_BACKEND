@@ -37,7 +37,7 @@ FitMindSet_UPAO es una plataforma diseñada para facilitar la adopción y el seg
 - **Despliegue**: Docker, Kubernetes
 
   Colaboradores del Proyecto
-Nombre	Rol	Perfil
+| Nombre	|Rol	|Perfil
   
 
 ## **Asignación de Historias de Usuario**
