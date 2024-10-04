@@ -3,11 +3,11 @@
 
 | *Integrante*                           | *Roles*        |
 |----------------------------------------|----------------|
-| Lescano Gutiérrez Jaime Rafael         | cholomatico    |
-| Saavedra Arroyo Sebastian Alonso       | cholomatico    |
-| Baylon Toledo Diogho Matteo           | chumatipolo    |
-| Prieto Meléndez Alexander Antonio      | chumatipolo    |
-| Jimenez Atoche Sthefano Gabriel        | XD             |
+| Lescano Gutiérrez Jaime Rafael         | Programador    |
+| Saavedra Arroyo Sebastian Alonso       | Programador    |
+| Baylon Toledo Diogho Matteo            | Programador    |
+| Prieto Meléndez Alexander Antonio      | Programador    |
+| Jimenez Atoche Sthefano Gabriel        | Programador    |
 ## **Descripción**
 FitMindSet_UPAO es una plataforma diseñada para facilitar la adopción y el seguimiento de hábitos saludables. Está dirigida a usuarios que desean mejorar su estilo de vida, pacientes con condiciones crónicas que requieren monitoreo continuo, y comunidades interesadas en el bienestar colectivo. La plataforma ofrece un enfoque personalizado y accesible, con herramientas respaldadas por profesionales de la salud, proporcionando recomendaciones ajustadas, monitoreo en tiempo real y motivación constante.
 
