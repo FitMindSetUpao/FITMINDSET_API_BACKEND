@@ -75,6 +75,6 @@ Cada historia de usuario se asigna a un módulo y tiene un identificador único:
 
 ## **Diagrama de Clases**
 ![DC](https://github.com/user-attachments/assets/0b576ea5-ce39-4b44-aea0-b0c6dbe32d50)
-## **Diagrama de Base de Datos
+## **Diagrama de Base de Datos**
 ![Base de datosSIT](https://github.com/user-attachments/assets/7cfc7016-44f7-4b4e-b906-cc9fd6aaf42e)
 
