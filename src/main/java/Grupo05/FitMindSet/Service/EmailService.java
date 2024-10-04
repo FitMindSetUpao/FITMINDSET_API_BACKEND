@@ -13,30 +13,7 @@ public class EmailService implements IEmailService {
     @Autowired
     private JavaMailSender emailSender;
 
-    // Método para enviar el correo de verificación
-    public void sendVerificationEmail(String to, String verificationLink) {
-        String subject = "Tu enlace de acceso";
-        String body = "Haz clic en el siguiente enlace para acceder: " + verificationLink;
-
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(body);
-
-        emailSender.send(message);
-    }
-
-    // Método para enviar el correo de restablecimiento de contraseña
-    public void sendPasswordResetEmail(String email, String resetLink) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(email);
-        message.setSubject("Recuperación de Contraseña");
-        message.setText("Para restablecer tu contraseña, por favor sigue el siguiente enlace: " + resetLink);
-
-        emailSender.send(message);
-    }
-
-    // Método genérico para enviar correos simples
+    // Método para enviar un correo simple
     public void sendSimpleMessage(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
@@ -46,42 +23,6 @@ public class EmailService implements IEmailService {
         emailSender.send(message);
     }
 
-    // Método para enviar correos con asunto y cuerpo específicos
-    public void sendEmail(String to, String subject, String body) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(body);
-        emailSender.send(message);
-    }
-
-    // Método para enviar correo de registro exitoso
-    public void sendRegistrationSuccessEmail(String to) {
-        String subject = "Registro Exitoso";
-        String body = "¡Bienvenido/a! Tu registro en la plataforma ha sido exitoso.";
-
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(body);
-
-        emailSender.send(message);
-    }
-
-    // Método para enviar correo de eliminación de cuenta
-    public void sendAccountDeletionEmail(String to) {
-        String subject = "Cuenta Eliminada";
-        String body = "Tu cuenta ha sido eliminada exitosamente. Si no fuiste tú, por favor contáctanos inmediatamente.";
-
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(body);
-
-        emailSender.send(message);
-    }
-
-    // Implementaciones de la interfaz IEmailService
     @Override
     public void sendMail(EmailDTO emailDTO) throws MessagingException {
         sendSimpleMessage(emailDTO.getDestinatario(), emailDTO.getAsunto(), emailDTO.getMensaje());
@@ -100,5 +41,49 @@ public class EmailService implements IEmailService {
     @Override
     public void sendMonthlyReminder(String recipientEmail) throws MessagingException {
         sendSimpleMessage(recipientEmail, "Monthly Reminder", "This is your monthly reminder.");
+    }
+
+    // Método para enviar recordatorios según la preferencia del usuario
+    public void sendReminderBasedOnPreference(String recipientEmail, String preference) throws MessagingException {
+        switch (preference.toLowerCase()) {
+            case "diaria":
+                sendDailyReminder(recipientEmail);
+                break;
+            case "semanal":
+                sendWeeklyReminder(recipientEmail);
+                break;
+            case "mensual":
+                sendMonthlyReminder(recipientEmail);
+                break;
+            default:
+                throw new IllegalArgumentException("Preferencia inválida");
+        }
+    }
+
+    // Generar un mensaje personalizado para el recordatorio
+    public String generateReminderMessage(String recipientEmail, String goalName, int daysRemaining) {
+        return "Hola, te faltan " + daysRemaining + " días para completar tu meta: " + goalName + ". ¡Sigue esforzándote!";
+    }
+
+    // Método para enviar un recordatorio personalizado basado en una meta
+    public void sendCustomReminder(String recipientEmail, String goalName, int daysRemaining, String preference) throws MessagingException {
+        String message = generateReminderMessage(recipientEmail, goalName, daysRemaining);
+
+        switch (preference.toLowerCase()) {
+            case "diaria":
+                sendSimpleMessage(recipientEmail, "Recordatorio Diario", message);
+                break;
+            case "semanal":
+                sendSimpleMessage(recipientEmail, "Recordatorio Semanal", message);
+                break;
+            case "quincenal":
+                sendSimpleMessage(recipientEmail, "Recordatorio Quincenal", message);
+                break;
+            case "mensual":
+                sendSimpleMessage(recipientEmail, "Recordatorio Mensual", message);
+                break;
+            default:
+                throw new IllegalArgumentException("Preferencia inválida");
+        }
     }
 }

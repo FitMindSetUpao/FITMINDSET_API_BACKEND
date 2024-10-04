@@ -16,14 +16,18 @@ import java.util.Map;
 @RestController
 @RequestMapping("/notificaciones")
 public class NotificationController {
+
     @Autowired
     private EmailService emailService;
+
     @Autowired
     private UsuarioService usuarioService;
+
     @PostMapping("/preferences")
     public ResponseEntity<?> setNotificationPreference(@RequestBody Map<String, String> request) {
         String preference = request.get("preference");
         String recipientEmail = request.get("email");
+
         if (usuarioService.isEmailRegistered(recipientEmail)) {
             try {
                 emailService.sendReminderBasedOnPreference(recipientEmail, preference);
