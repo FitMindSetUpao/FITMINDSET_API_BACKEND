@@ -1,26 +1,35 @@
 package Grupo05.FitMindSet.Controller;
 
 import Grupo05.FitMindSet.dto.request.RecursoDTO;
+import Grupo05.FitMindSet.dto.request.RecursoUpdateRequestDTO;
+import Grupo05.FitMindSet.dto.response.RecursoResponseDTO;
 import Grupo05.FitMindSet.Service.RecursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/recursos")
 public class RecursoController {
 
     @Autowired
     private RecursoService recursoService;
 
+    // Endpoint para actualizar un recurso
+    @PutMapping("/{recursoId}")
+    public ResponseEntity<RecursoResponseDTO> actualizarRecurso(@PathVariable Long recursoId,
+                                                                @RequestBody RecursoUpdateRequestDTO request) {
+        RecursoResponseDTO recursoActualizado = recursoService.actualizarRecurso(recursoId, request);
+        return ResponseEntity.ok(recursoActualizado);
+    }
+
     // Obtener todos los recursos
-    @GetMapping("/recursos")
+    @GetMapping
     public ResponseEntity<List<RecursoDTO>> obtenerRecursos() {
         List<RecursoDTO> recursos = recursoService.obtenerTodosLosRecursos();
         if (recursos.isEmpty()) {
@@ -30,7 +39,7 @@ public class RecursoController {
     }
 
     // Buscar recursos por consulta
-    @GetMapping("/recursos/buscar")
+    @GetMapping("/buscar")
     public ResponseEntity<List<RecursoDTO>> buscarRecursos(@RequestParam String query) {
         List<RecursoDTO> recursos = recursoService.buscarRecursos(query);
         if (recursos.isEmpty()) {
