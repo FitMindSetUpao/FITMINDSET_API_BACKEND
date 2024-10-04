@@ -11,6 +11,6 @@ public class RecursoDTO {
     private String nombreRecurso;
     private String descripcionRecurso;
     private BigDecimal precioRecurso;
-    private String tipoRecurso;
-    private Long tipoDeHabitoId;
+    private TipoRecurso tipoRecurso;  // De la rama 'develop', que usa el enum 'TipoRecurso'
+    private Long tipoDeHabitoId;      // De la rama 'feature/reporteRecursos', añade el campo 'tipoDeHabitoId'
 }
