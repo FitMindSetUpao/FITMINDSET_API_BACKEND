@@ -36,6 +36,10 @@ FitMindSet_UPAO es una plataforma diseñada para facilitar la adopción y el seg
 - **Notificaciones**: Firebase Cloud Messaging
 - **Despliegue**: Docker, Kubernetes
 
+  Colaboradores del Proyecto
+Nombre	Rol	Perfil
+  
+
 ## **Asignación de Historias de Usuario**
 Cada historia de usuario se asigna a un módulo y tiene un identificador único:
 
