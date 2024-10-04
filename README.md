@@ -29,9 +29,9 @@ FitMindSet_UPAO es una plataforma diseñada para facilitar la adopción y el seg
    - Monitoreo del progreso colectivo.
 
 ## **Tecnologías Utilizadas**
-- **Frontend**: ReactJS, HTML5, CSS3
-- **Backend**: Node.js, Express
-- **Base de Datos**: MongoDB
+- **Frontend**: Angular, HTML5, CSS3
+- **Backend**: SpringBoot, Express
+- **Base de Datos**: Postgree
 - **Autenticación**: JWT (JSON Web Tokens)
 - **Notificaciones**: Firebase Cloud Messaging
 - **Despliegue**: Docker, Kubernetes
