@@ -66,3 +66,5 @@ Cada historia de usuario se asigna a un módulo y tiene un identificador único:
 | Lescano Gutiérrez Jaime Rafael       | EPC-34   | Pagos en Línea               | Como usuario quiero poder tener acceso a la información de lo que ofrece la versión premium de la aplicación.                                                | CRUD       |
 | Lescano Gutiérrez Jaime Rafael       | EPC-35   | Recursos                    | Como usuario quiero tener acceso a un foro de usuarios para consultar, explicar y debatir sobre temas de la salud.                                           | CORE       |
 
+## **Diagrama de Clases**
+![DC](https://github.com/user-attachments/assets/0b576ea5-ce39-4b44-aea0-b0c6dbe32d50)
