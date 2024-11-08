@@ -50,4 +50,44 @@ public class AuthController {
         UserProfileDTO profile = usuarioService.getUserProfileById(id);
         return ResponseEntity.ok(profile);
     }
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> request) {
+        String correo = request.get("correo");
+        if (correo == null || correo.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El correo no puede estar vacío.");
+        }
+        System.out.println("Verificando si el correo está registrado: " + correo);
+        if (!usuarioService.isCorreoRegistered(correo)) {
+            System.out.println("No se encontró un usuario con el correo: " + correo);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró un usuario con este correo.");
+        }
+        String nombreUsuario = usuarioService.getUserNameByEmail(correo); // Cambiado para utilizar el servicio
+        String token = tokenProvider.createPasswordResetToken(correo);
+        String resetLink = "http://localhost:4200/auth/reset-password?token=" + token;
+
+        // Intentar enviar el correo electrónico
+        try {
+            emailService.sendPasswordResetEmail(correo, resetLink, nombreUsuario);
+        } catch (MessagingException e) {
+            System.out.println("Error al enviar el correo: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al enviar el enlace de recuperación. Inténtalo de nuevo más tarde.");
+        }
+
+        return ResponseEntity.ok("Enlace de recuperación enviado al correo.");
+    }
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody Map<String, String> request) {
+        String token = request.get("token");
+        String newPassword = request.get("newPassword");
+
+        if (token == null || token.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El token es inválido o ha expirado.");
+        }
+        if (!tokenProvider.validateToken(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token inválido.");
+        }
+        String email = tokenProvider.getEmailFromToken(token);
+        usuarioService.resetPassword(email, newPassword);
+        return ResponseEntity.ok("Contraseña restablecida con éxito.");
+    }
 }
