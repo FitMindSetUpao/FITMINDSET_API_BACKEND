@@ -19,4 +19,14 @@ public class MetaController {
         ModificarMetaResponseDTO response = usuarioService.modificarMeta(request);
         return ResponseEntity.ok(response);
     }
+     @PutMapping("/actualizar/{metaId}")
+    public ResponseEntity<MetaResponseDTO> actualizarMeta(@PathVariable Long metaId, @RequestBody MetaDTO metaDTO) {
+        MetaResponseDTO metaActualizada = metaService.actualizarMeta(metaId, metaDTO);
+        return new ResponseEntity<>(metaActualizada, HttpStatus.OK);
+    }
+     @DeleteMapping("/eliminar/{metaId}")
+    public ResponseEntity<String> eliminarMeta(@PathVariable Long metaId) {
+        metaService.eliminarMeta(metaId);
+        return new ResponseEntity<>("Meta eliminada con éxito y notificación enviada", HttpStatus.NO_CONTENT);
+    }
 }
