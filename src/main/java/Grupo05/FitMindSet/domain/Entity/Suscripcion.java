@@ -1,48 +1,37 @@
 package Grupo05.FitMindSet.domain.Entity;
 
-import Grupo05.FitMindSet.domain.Enum.TipoSuscripcion;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "Suscripcion")
 public class Suscripcion {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PK_SuscripcionID")
     private Long id;
-
     @Column(name = "Fechainicio", nullable = false)
     private LocalDateTime fechainicio;
-
     @Column(name = "FechaFin", nullable = true)
     private LocalDateTime fechafin;
-
-    @Column(name = "Monto", nullable = false)
-    private BigDecimal monto;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "TipoSuscripcion", nullable = false)
-    private TipoSuscripcion tipoSuscripcion;
-
+    @Column(name = "precio", nullable = false)
+    private BigDecimal precio;
     @ManyToOne
-    @JoinColumn(name = "FK_Customer_Suscripcion", nullable = false)
+    @JoinColumn(name = "CustomerID", nullable = false)
     private Customer customer;
-
     @ManyToOne
-    @JoinColumn(name = "FK_Plan_Suscripcion", nullable = false)
+    @JoinColumn(name = "PlanID", nullable = false)
     private Plan plan;
-
-    @ManyToMany
-    @JoinTable(
-            name = "Suscripcion_ContenidoAdicional",
-            joinColumns = @JoinColumn(name = "SuscripcionID"),
-            inverseJoinColumns = @JoinColumn(name = "ContenidoAdicionalID")
-    )
-    private Set<ContenidoAdicional> contenidosAdicionales;
+    @Column(name = "order_id")
+    private String orderId;
+    @Column(name = "Activa", nullable = false)
+    private boolean activa;
+    @Column(name = "Status", nullable = false)
+    private String status;
+    @Column(name = "expiry_date")
+    private LocalDateTime expiryDate;
+    @Column(name = "permite_descargar", nullable = false, columnDefinition = "boolean default false")
+    private boolean permiteDescargar;
 }
